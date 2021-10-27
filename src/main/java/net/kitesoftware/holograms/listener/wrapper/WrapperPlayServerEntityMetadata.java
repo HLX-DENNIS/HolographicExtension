@@ -20,6 +20,7 @@ package net.kitesoftware.holograms.listener.wrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.injector.server.TemporaryPlayer;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import org.bukkit.World;
@@ -79,7 +80,9 @@ public class WrapperPlayServerEntityMetadata extends AbstractPacket {
      * @return The entity.
      */
     public Entity getEntity(PacketEvent event) {
-        return getEntity(event.getPlayer().getWorld());
+        if(!(event.getPlayer() instanceof TemporaryPlayer))
+            return getEntity(event.getPlayer().getWorld());
+        return null;
     }
 
     /**
